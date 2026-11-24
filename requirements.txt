@@ -1,0 +1,30 @@
+# Runtime dependencies: exact versions, tested together with Python 3.13.
+# Merge of SecureApp's and the dashboard's requirements.txt. Where a package appeared in both
+# with different versions, the newer one was kept (noted on its line).
+
+# --- Desktop window (Qt for Python) ---
+PySide6-Essentials==6.12.0     # windows and widgets
+PySide6-Addons==6.12.0         # extra Qt modules that the web engine depends on
+PySide6-WebEngine==6.12.0.140  # Qt WebEngine (Chromium): shows the dashboard inside the window
+
+# --- Two-level sign-in (Authentication package) ---
+argon2-cffi==25.1.0            # Argon2id password hashing
+cryptography==50.0.2           # AES-256-GCM encryption of the TOTP secret
+pyotp==2.12.1                  # TOTP one-time codes (RFC 6238); the dashboard listed 2.9.0
+qrcode==8.2                    # QR code for the authenticator app; the dashboard listed qrcode[pil]==8.0
+Werkzeug==3.0.6                # local web server of the gateway (also required by dash, which needs <3.1)
+
+# --- Dashboard ---
+dash==2.18.2
+dash-mantine-components==2.8.1 # the dashboard listed ">=2.0,<3.0": pinned to the tested version
+plotly==5.24.1
+pandas==2.2.3
+numpy==2.1.3
+requests==2.32.3               # market data download (providers/yahoo_provider.py)
+
+# --- Listed by the dashboard, but not imported by any file of the project ---
+# Left out so that nothing unused gets installed (every extra package is more code to trust).
+# If you need one of them, delete the "#" at the start of its line.
+# bcrypt==4.2.1
+# gspread==6.1.4
+# google-auth==2.36.0
